@@ -42,7 +42,7 @@
                 copyButton.classList.add('loading');
                 copyButton.disabled = true;
 
-                fetch('/api/upload.js', {
+                fetch('/upload', {
                     method: 'POST',
                     body: formData
                 })
