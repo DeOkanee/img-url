@@ -2,8 +2,6 @@ const express = require('express');
 const multer = require('multer');
 const cloudinary = require('cloudinary').v2;
 const cors = require('cors');
-const { Readable } = require('stream');
-
 
 // Inisialisasi aplikasi Express
 const app = express();
@@ -37,11 +35,10 @@ app.post('/upload', upload.single('image'), async (req, res) => {
     const result = await uploadToCloudinary(req.file.buffer, req.file.mimetype.split('/')[1]);
     res.json({ url: result.secure_url });
   } catch (error) {
+    console.error('Upload error:', error);
     res.status(500).json({ error: 'Upload failed' });
   }
 });
 
 // Jalankan server
-app.listen(3000, () => {
-  console.log('Server berjalan di http://localhost:3000');
-});
+// App.listen tidak diperlukan di Vercel, mereka akan mengatur port untuk Anda
