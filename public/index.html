@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image to URL Converter</title>
+   <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Image to URL Converter</h2>
+        <input type="file" id="fileInput" accept="image/*">
+        <div class="output">
+            <label for="urlOutput">Image URL:</label>
+            <textarea id="urlOutput" rows="4" readonly></textarea>
+            <div class="buttons">
+                <button id="copyButton" class="disabled" disabled>Copy</button>
+            </div>
+        </div>
+        <div class="preview-container">
+            <img id="urlImagePreview" alt="URL Image Preview" style="display: none;">
+        </div>
+    </div>
+
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const urlOutput = document.getElementById('urlOutput');
+        const urlImagePreview = document.getElementById('urlImagePreview');
+        const copyButton = document.getElementById('copyButton');
+
+        fileInput.addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                const formData = new FormData();
+                formData.append('image', file);
+
+                fetch('/upload', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const imageUrl = data.url;
+                    urlOutput.value = imageUrl;
+                    urlImagePreview.src = imageUrl;
+                    urlImagePreview.style.display = 'block';
+                    
+                    // Enable the copy button
+                    copyButton.classList.remove('disabled');
+                    copyButton.disabled = false;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            }
+        });
+
+        copyButton.addEventListener('click', function() {
+            if (urlOutput.value) {
+                urlOutput.select();
+                document.execCommand('copy');
+
+                copyButton.textContent = 'Copied';
+                copyButton.classList.add('copied');
+
+                // Reset button text after a few seconds
+                setTimeout(() => {
+                    copyButton.textContent = 'Copy';
+                    copyButton.classList.remove('copied');
+                }, 2000);
+            }
+        });
+    </script>
+</body>
+</html>
