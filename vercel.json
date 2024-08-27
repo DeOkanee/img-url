@@ -1,7 +1,7 @@
 {
     "version": 2,
     "routes": [
-      { "src": "/upload/(.*)", "dest": "/upload/$1" }
+      { "src": "/upload", "dest": "/api/upload" }
     ]
   }
   
