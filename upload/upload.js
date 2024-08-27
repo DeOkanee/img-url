@@ -6,9 +6,9 @@ import path from 'path';
 
 // Konfigurasi Cloudinary
 cloudinary.config({
-  cloud_name: 'cloud_name',    // Ganti dengan Cloud Name Cloudinary kamu
-  api_key: 'api_key',          // Ganti dengan API Key Cloudinary kamu
-  api_secret: 'api_secret'     // Ganti dengan API Secret Cloudinary kamu
+  cloud_name: 'dr8dzahhw',    // Ganti dengan Cloud Name Cloudinary kamu
+  api_key: '744248224393952',          // Ganti dengan API Key Cloudinary kamu
+  api_secret: '2DU1TkcN9z4WTZi_VE44QEYUiGo'    // Ganti dengan API Secret Cloudinary kamu
 });
 
 // Menangani upload
