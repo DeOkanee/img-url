@@ -14,6 +14,7 @@ async function uploadImage() {
   
       const data = await response.json();
       document.querySelector('#url').textContent = data.url;
+      document.querySelector('#url').innerHTML = `<img src="${data.url}" alt="Uploaded Image" />`;
     } catch (error) {
       console.error('Error:', error);
     }
