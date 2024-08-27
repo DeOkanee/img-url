@@ -1,7 +1,9 @@
+// /api/upload.js
 import cloudinary from 'cloudinary';
 import multer from 'multer';
 import { NextResponse } from 'next/server';
 
+// Konfigurasi Cloudinary
 cloudinary.config({
   cloud_name: 'dr8dzahhw',    // Ganti dengan Cloud Name Cloudinary kamu
   api_key: '744248224393952', // Ganti dengan API Key Cloudinary kamu
