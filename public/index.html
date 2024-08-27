@@ -26,62 +26,45 @@
         </div>
     </div>
     <script>
-        const fileInput = document.getElementById('fileInput');
-        const urlOutput = document.getElementById('urlOutput');
-        const urlImagePreview = document.getElementById('urlImagePreview');
-        const copyButton = document.getElementById('copyButton');
-        const statusText = document.getElementById('statusText');
+       fileInput.addEventListener('change', function() {
+    const file = this.files[0];
+    if (file) {
+        const formData = new FormData();
+        formData.append('image', file);
 
-        fileInput.addEventListener('change', function() {
-            const file = this.files[0];
-            if (file) {
-                const formData = new FormData();
-                formData.append('image', file);
+        // Menampilkan status "Memuat..."
+        statusText.textContent = 'Memuat...';
+        copyButton.classList.add('loading');
+        copyButton.classList.remove('enabled');
+        copyButton.disabled = true;
 
-                statusText.textContent = 'Memuat...';
-                copyButton.classList.add('loading');
-                copyButton.disabled = true;
-
-                fetch('/upload', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    const imageUrl = data.url;
-                    urlOutput.value = imageUrl;
-                    urlImagePreview.src = imageUrl;
-                    urlImagePreview.style.display = 'block';
-                    
-                    statusText.textContent = 'Terconvert';
-                    copyButton.classList.remove('loading');
-                    copyButton.classList.add('enabled');
-                    copyButton.disabled = false;
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    statusText.textContent = 'Gagal memuat';
-                    copyButton.classList.remove('loading');
-                    copyButton.classList.remove('enabled');
-                    copyButton.disabled = false;
-                });
-            }
+        fetch('/upload', { // Pastikan URL ini sesuai dengan yang ada di Vercel
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            const imageUrl = data.url;
+            urlOutput.value = imageUrl;
+            urlImagePreview.src = imageUrl;
+            urlImagePreview.style.display = 'block';
+            
+            // Mengubah status menjadi "Terconvert"
+            statusText.textContent = 'Terconvert';
+            copyButton.classList.remove('loading');
+            copyButton.classList.add('enabled');
+            copyButton.disabled = false;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            statusText.textContent = 'Gagal memuat';
+            copyButton.classList.remove('loading');
+            copyButton.classList.remove('enabled');
+            copyButton.disabled = false;
         });
+    }
+});
 
-        copyButton.addEventListener('click', function() {
-            if (urlOutput.value) {
-                urlOutput.select();
-                document.execCommand('copy');
-
-                copyButton.textContent = 'Copied';
-                copyButton.classList.add('copied');
-
-                setTimeout(() => {
-                    copyButton.textContent = 'Copy';
-                    copyButton.classList.remove('copied');
-                }, 2000);
-            }
-        });
     </script>
 </body>
 </html>
