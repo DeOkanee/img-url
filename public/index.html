@@ -1,4 +1,3 @@
-<!-- /public/index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,6 +25,63 @@
             <img id="urlImagePreview" alt="URL Image Preview">
         </div>
     </div>
-    <script src="app.js"></script>
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const urlOutput = document.getElementById('urlOutput');
+        const urlImagePreview = document.getElementById('urlImagePreview');
+        const copyButton = document.getElementById('copyButton');
+        const statusText = document.getElementById('statusText');
+
+        fileInput.addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                const formData = new FormData();
+                formData.append('image', file);
+
+                statusText.textContent = 'Memuat...';
+                copyButton.classList.add('loading');
+                copyButton.disabled = true;
+
+                fetch('/upload', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const imageUrl = data.url;
+                    urlOutput.value = imageUrl;
+                    urlImagePreview.src = imageUrl;
+                    urlImagePreview.style.display = 'block';
+                    
+                    statusText.textContent = 'Terconvert';
+                    copyButton.classList.remove('loading');
+                    copyButton.classList.add('enabled');
+                    copyButton.disabled = false;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    statusText.textContent = 'Gagal memuat';
+                    copyButton.classList.remove('loading');
+                    copyButton.classList.remove('enabled');
+                    copyButton.disabled = false;
+                });
+            }
+        });
+
+        copyButton.addEventListener('click', function() {
+            if (urlOutput.value) {
+                urlOutput.select();
+                document.execCommand('copy');
+
+                copyButton.textContent = 'Copied';
+                copyButton.classList.add('copied');
+
+                setTimeout(() => {
+                    copyButton.textContent = 'Copy';
+                    copyButton.classList.remove('copied');
+                }, 2000);
+            }
+        });
+    </script>
 </body>
 </html>

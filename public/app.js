@@ -3,7 +3,7 @@ async function uploadImage() {
     formData.append('image', document.querySelector('#fileInput').files[0]);
 
     try {
-        const response = await fetch('/api/upload', {
+        const response = await fetch('/upload', {
             method: 'POST',
             body: formData
         });
