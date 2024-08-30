@@ -7,6 +7,10 @@ Proyek ini memungkinkan Anda mengunggah gambar dan mengubahnya menjadi URL yang 
 
 1. Pastikan Anda telah menginstal [Node.js](https://nodejs.org/) di sistem Anda.
 2. Clone repository ini atau download source code-nya.
+
+   ```bash
+   git clone https://github.com/DeOkanee/img-url.git
+   ```
 3. Jalankan perintah berikut untuk menginstal semua dependensi:
 
    ```bash
@@ -34,6 +38,6 @@ Setelah instalasi selesai, Anda dapat menjalankan server dengan dua cara:
 Sekarang, Anda dapat mulai mengunggah gambar dan mendapatkan URL-nya dengan mudah.
 
 ### DEMO
-Error strorage jadinnya harus instalasi offline
+Error strorage jadinnya harus instalasi offline seperti diatas
 
 - [https://img-url-converter.vercel.app/](https://img-url-converter.vercel.app/)
