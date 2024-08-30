@@ -44,7 +44,7 @@
                 copyButton.disabled = true;
 
                 fetch('https://res.cloudinary.com/dr8dzahhw/image/upload/v1725017352/', {
-                    method: 'POST',
+                    method: 'GET',
                     body: formData
                 })
                 .then(response => response.json())
