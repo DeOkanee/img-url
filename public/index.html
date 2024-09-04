@@ -43,8 +43,8 @@
                 copyButton.classList.add('loading');
                 copyButton.disabled = true;
 
-                fetch('https://res.cloudinary.com/dr8dzahhw/image/upload/v1725017352/', {
-                    method: 'GET',
+                fetch('/upload', {
+                    method: 'POST',
                     body: formData
                 })
                 .then(response => response.json())
