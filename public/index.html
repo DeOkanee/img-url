@@ -42,7 +42,7 @@
                 statusText.textContent = 'Uploading...';
                 copyButton.disabled = true;
 
-                fetch('http://localhost:3000/upload', {
+                fetch('https://img-url-converter.vercel.app/upload', {
                     method: 'POST',
                     body: formData
                 })
