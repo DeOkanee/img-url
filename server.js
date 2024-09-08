@@ -11,9 +11,9 @@ app.use(express.static('public')); // Melayani file statis dari folder 'public'
 
 // Konfigurasi Cloudinary
 cloudinary.config({
-  cloud_name: 'dr8dzahhw',    // Ganti dengan Cloud Name Cloudinary kamu
-  api_key: '744248224393952',          // Ganti dengan API Key Cloudinary kamu
-  api_secret: '2DU1TkcN9z4WTZi_VE44QEYUiGo'     // Ganti dengan API Secret Cloudinary kamu
+  cloud_name: 'dwpnsfghy',    // Ganti dengan Cloud Name Cloudinary kamu
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
 // Konfigurasi Multer
