@@ -42,11 +42,12 @@
                 statusText.textContent = 'Uploading...';
                 copyButton.disabled = true;
 
-                fetch('https://img-url-converter.vercel.app/upload', {
-  method: 'POST',
-  body: formData
-})
+                const baseUrl = window.location.origin;
 
+                fetch(`${baseUrl}/upload`, {
+                    method: 'POST',
+                    body: formData
+                })
 
 
 
