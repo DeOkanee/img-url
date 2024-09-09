@@ -42,10 +42,13 @@
                 statusText.textContent = 'Uploading...';
                 copyButton.disabled = true;
 
-                fetch('http://localhost:3000/upload', {
+                const baseUrl = window.location.origin;
+
+                fetch(`${baseUrl}/upload`, {
                     method: 'POST',
                     body: formData
                 })
+
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Upload failed');
