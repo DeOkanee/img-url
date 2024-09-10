@@ -43,7 +43,7 @@
                 copyButton.disabled = true;
 
                 const baseUrl = window.location.origin;
-                fetch(`https://api.cloudinary.com/v1_1/dwpnsfghy/:resource_type/upload`, {
+                fetch(`${baseUrl}/upload`, {
                     method: 'POST',
                     body: formData
                 })
