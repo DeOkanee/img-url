@@ -42,8 +42,8 @@
                 statusText.textContent = 'Uploading...';
                 copyButton.disabled = true;
 
-                const baseUrl = window.location.origin;
-                fetch(`${baseUrl}/upload`, {
+              
+                fetch(`https://res.cloudinary.com/dwpnsfghy/image/upload`, {
                     method: 'POST',
                     body: formData
                 })
