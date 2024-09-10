@@ -34,39 +34,44 @@
         const statusText = document.getElementById('statusText');
 
         fileInput.addEventListener('change', function() {
-    const file = this.files[0];
-    if (file) {
-        const formData = new FormData();
-        formData.append('image', file);
+            const file = this.files[0];
+            if (file) {
+                const formData = new FormData();
+                formData.append('image', file);
 
-        statusText.textContent = 'Uploading...';
-        copyButton.disabled = true;
+                statusText.textContent = 'Uploading...';
+                copyButton.disabled = true;
 
-        fetch(`https://img-url-converter.vercel.app/upload`, {  // Ganti ke URL back-end kamu
-            method: 'POST',
-            body: formData
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Upload failed');
+                const baseUrl = window.location.origin;
+                fetch(`https://api.cloudinary.com/v1_1/dwpnsfghy/:resource_type/upload`, {
+                    method: 'POST',
+                    body: formData
+                })
+
+
+
+
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Upload failed');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const imageUrl = data.url;
+                    urlOutput.value = imageUrl;
+                    urlImagePreview.src = imageUrl;
+                    urlImagePreview.style.display = 'block';
+
+                    statusText.textContent = 'Upload successful!';
+                    copyButton.disabled = false;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    statusText.textContent = 'Upload failed!';
+                });
             }
-            return response.json();
-        })
-        .then(data => {
-            const imageUrl = data.url;
-            urlOutput.value = imageUrl;
-            urlImagePreview.src = imageUrl;
-            urlImagePreview.style.display = 'block';
-
-            statusText.textContent = 'Upload successful!';
-            copyButton.disabled = false;
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            statusText.textContent = 'Upload failed!';
         });
-    }
-});
 
         copyButton.addEventListener('click', function() {
             if (urlOutput.value) {
