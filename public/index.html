@@ -43,11 +43,11 @@
                 copyButton.disabled = true;
 
                 const baseUrl = window.location.origin;
-
-                fetch(`/upload`, {
+                fetch(`${baseUrl}/upload`, {
                     method: 'POST',
                     body: formData
                 })
+
 
 
 
